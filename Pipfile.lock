@@ -307,7 +307,7 @@
                 "sha256:f646f8d17d02be0872291f258cce3813497bc7888cd4712a577fd1e719b2f213"
             ],
             "index": "pypi",
-            "version": "==1.4.6"
+            "version": "*"
         },
         "pyasn1": {
             "hashes": [

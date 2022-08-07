@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     'channels',
+    'livereload',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+MIDDLEWARE_CLASSES = (
+    'livereload.middleware.LiveReloadScript',
+)
 
 ROOT_URLCONF = 'chat.urls'
 
@@ -83,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'chat',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'LoveCraft2030+',
         'OPTIONS': {
         }
     }
@@ -168,6 +173,7 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = 'logout-page'
 
 ALLOWED_HOSTS = ['*']
 

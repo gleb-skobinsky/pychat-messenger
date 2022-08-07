@@ -1,57 +1,64 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block main %}
 
-{% block main %}
-
-    <div class="container">
-        <div class="page-header">
-            <h1>Welcome to ChatApp
-                <small>Pick a user and start chatting!</small>
-            </h1>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div id="user-list" class="list-group">
-                    <a href="" class="list-group-item disabled">
-                        <h4 class="list-group-item-heading">Users</h4>
-                        {# Users go here #}
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Chat</h4>
-                    </div>
-                    <div>
-                        <ul id="messages" class="messages">
-                            {# Messages go here #}
-                        </ul>
-                    </div>
-                    <div class="panel-footer">
-                        <div class="input-group">
-                            <input id="chat-input" type="text"
-                                   class="form-control input"
-                                   placeholder="Type your message here ..."
-                                   maxlength="500">
-                            <span class="input-group-btn">
-                            <button class="btn btn-info btn"
-                                    id="btn-send">
-                                Send</button>
-                        </span>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
+<div class="columns is-fullheight" style="min-height: 100vh">
+  <div class="column is-one-third">
+    <div class="user-signature">Signed in as: {{ user.username }}</div>
+    <button
+      class="button logout-button is-fullwidth"
+      onclick="location.href = 'logout/'"
+    >
+      Log out
+    </button>
+    <div class="buttons has-addons mode-selector">
+      <button class="button half">Messages</button>
+      <button class="button half">Users</button>
     </div>
-
-    <script>
-        let sessionKey = '{{ request.session.session_key }}';
-        let currentUser = '{{ request.user.username }}';
-    </script>
-    <script src="{% static 'js/app.js' %}"></script>
+    <div id="user-list" class="panel">{# Users go here #}</div>
+  </div>
+  <div class="column is-two-thirds" id="chat-column">
+    <div
+      class="panel panel-info is-fullheight"
+      style="
+        height: 100vh;
+        margin-bottom: -30px;
+        z-index: 1;
+        background-color: #f9f8ff;
+      "
+    >
+      <div id="chat-overlay" class="chat-hider"></div>
+      <div class="panel-heading chat-title">
+        <h4 class="panel-title" id="chat-name">Chat</h4>
+      </div>
+      <div>
+        <ul id="messages" class="messages" style="min-height: 80vh">
+          {# Messages go here #}
+        </ul>
+      </div>
+      <div class="panel-footer message-form-background">
+        <div class="field has-addons">
+          <p class="control is-expanded message-input">
+            <input
+              id="chat-input"
+              type="text"
+              class="input"
+              placeholder="Type your message here ..."
+              maxlength="500"
+            />
+          </p>
+          <p class="control message-button">
+            <button class="button button-send" id="btn-send">
+              <i class="fa fa-paper-plane"></i>
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  let sessionKey = "{{ request.session.session_key }}";
+  let currentUser = "{{ request.user.username }}";
+</script>
+<script src="{% static 'js/app.js' %}"></script>
 
 {% endblock %}
