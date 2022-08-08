@@ -21,45 +21,45 @@ body {
   border-radius: 10px;
 }
 
-.left,
-.right {
+.leftly,
+.rightly {
   padding: 3.5rem;
 }
 
-.left {
+.leftly {
   border-right: 5px solid var(--background);
 }
 
-.left .title {
+.leftly .title {
   font-weight: 800;
   letter-spacing: -2px;
 }
 
-.left .colored {
+.leftly .colored {
   color: var(--brandColor);
   font-weight: 500;
   margin-top: 1rem !important;
   letter-spacing: -1px;
 }
 
-.left p {
+.leftly p {
   color: var(--textLight);
   font-size: 1.15rem;
 }
 
-.right .title {
+.rightly .title {
   font-weight: 800;
   letter-spacing: -1px;
 }
 
-.right .description {
+.rightly .description {
   margin-top: 1rem;
   margin-bottom: 1rem !important;
   color: var(--textLight);
   font-size: 1.15rem;
 }
 
-.right small {
+.rightly small {
   color: var(--textLight);
 }
 
