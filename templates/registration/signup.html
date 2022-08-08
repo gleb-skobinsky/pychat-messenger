@@ -1,0 +1,73 @@
+{% extends 'base.html' %} {% load static %} {% block main %}
+
+<section class="container">
+  <div class="columns is-multiline">
+    <div class="column is-8 is-offset-2 register">
+      <div class="columns">
+        <div class="column left">
+          <h1 class="title is-1">Super Simple Django Messenger</h1>
+          <h2 class="subtitle colored is-4">
+            Use it as a basis for whatever you want
+          </h2>
+        </div>
+        <div class="column right has-text-centered">
+          <h1 class="title is-4">Sign up</h1>
+          <form method="post">
+            {% csrf_token %}
+            <div class="field">
+              <div class="control">{{ form.username }}</div>
+            </div>
+
+            <div class="field">
+              <div class="control">{{ form.email }}</div>
+            </div>
+            <div class="field">
+              <div class="control">{{ form.password1 }}</div>
+            </div>
+            <div class="field">
+              <div class="control">{{ form.password2 }}</div>
+            </div>
+            <button
+              class="button is-block is-primary is-fullwidth is-medium"
+              type="submit"
+            >
+              Submit
+            </button>
+            <br />
+            <small><em>It is also recommended to attach an avatar.</em></small>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="column is-8 is-offset-2">
+      <br />
+      <nav class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+            &emsp;
+            <span class="icon">
+              <i class="fab fa-facebook"></i>
+            </span>
+            &emsp;
+            <span class="icon">
+              <i class="fab fa-instagram"></i>
+            </span>
+            &emsp;
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+            &emsp;
+            <span class="icon">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

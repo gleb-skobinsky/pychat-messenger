@@ -17,6 +17,50 @@
   margin-left: 15px;
 }
 
+.wrapper {
+  overflow: hidden;
+  max-width: 390px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+}
+
+.outer {
+  border: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.signup-submit {
+  margin-top: 15px;
+}
+
+.vertical-center {
+  max-width: 300px;
+  margin: 0;
+  position: absolute;
+  top: 40%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.wrapper .form-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.form-container .form-inner {
+  display: flex;
+  width: 200%;
+}
+
+.form-container .form-inner form {
+  width: 50%;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
 .users-heading {
   background-color: white;
 }

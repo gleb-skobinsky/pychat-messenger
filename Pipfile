@@ -5,9 +5,10 @@ verify_ssl = true
 
 [dev-packages]
 pdbpp = "*"
+autopep8 = "*"
 
 [packages]
-mysqlclient = "==1.4.6"
+mysqlclient = "*"
 djangorestframework = "==3.11.2"
 django-filter = "==2.4.0"
 channels = "==2.4.0"
@@ -15,3 +16,4 @@ channels-redis = "==2.4.2"
 pytz = "*"
 Django = "==3.1.14"
 Markdown = "==3.2.1"
+mysql-connector-python = "*"
