@@ -3,12 +3,9 @@
 <div class="columns is-fullheight" style="min-height: 100vh">
   <div class="column is-one-third">
     <div class="user-signature">Signed in as: {{ user.username }}</div>
-    <button
-      class="button logout-button is-fullwidth"
-      onclick="location.href = 'logout/'"
+    <a href="{% url 'logout' %}"
+      ><button class="button logout-button is-fullwidth">Log out</button></a
     >
-      Log out
-    </button>
     <div class="buttons has-addons mode-selector">
       <button class="button half">Messages</button>
       <button class="button half">Users</button>

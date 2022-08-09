@@ -1,41 +1,44 @@
 {% extends "base.html" %} {% load static %} {% block head %}
 <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css" />
 {% endblock %} {% block main %}
+<div class="dark-grad" style="height: 100vh">
+  <div class="column is-one-third is-offset-one-third">
+    <div class="box" style="margin-top: 20%">
+      <div class="container">
+        <form class="form-signin" method="post">
+          {% csrf_token %}
 
-<div class="column is-one-third is-offset-one-third">
-  <div class="box" style="margin-top: 20%">
-    <div class="container">
-      <form class="form-signin" method="post">
-        {% csrf_token %}
+          <h2 class="title">Please log in</h2>
 
-        <h2 class="title">Please log in</h2>
+          <br />
 
-        <br />
+          {% if form.errors %}
+          <div class="span3 alert alert-danger">
+            <h4>Error!</h4>
+            {{ form.errors }}
+          </div>
+          {% endif %}
 
-        {% if form.errors %}
-        <div class="span3 alert alert-danger">
-          <h4>Error!</h4>
-          {{ form.errors }}
-        </div>
-        {% endif %}
+          <label for="username" class="sr-only">Username</label>
+          {{ form.username }}
+          <br />
+          <br />
+          <label for="password" class="sr-only">Password</label>
+          {{ form.password }}
 
-        <label for="username" class="sr-only">Username</label>
-        {{ form.username }}
-        <br />
-        <br />
-        <label for="password" class="sr-only">Password</label>
-        {{ form.password }}
+          <br />
+          <p>
+            Don't have an account? <a href="{% url 'signup' %}">Sign up!</a>
+          </p>
+          <br />
 
-        <br />
-        <br />
-
-        <button class="button is-primary is-fullwidth" type="submit">
-          Log In
-        </button>
-      </form>
+          <button class="button is-primary is-fullwidth" type="submit">
+            Log In
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
-
 <!-- /container -->
 {% endblock %}
