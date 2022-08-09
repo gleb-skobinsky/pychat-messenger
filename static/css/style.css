@@ -87,6 +87,10 @@
   min-width: 100vw;
 }
 
+#rooms-list {
+  min-width: 100vw;
+}
+
 .arrow-down {
   width: 0;
   height: 0;
@@ -237,4 +241,8 @@ body {
 
 .dark-grad {
   background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+}
+
+#responsive:hover {
+  background-color: #ece5ff;
 }

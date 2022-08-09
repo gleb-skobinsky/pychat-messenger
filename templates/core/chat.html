@@ -7,10 +7,13 @@
       ><button class="button logout-button is-fullwidth">Log out</button></a
     >
     <div class="buttons has-addons mode-selector">
-      <button class="button half">Messages</button>
-      <button class="button half">Users</button>
+      <button class="button half" id="messages-option">Messages</button>
+      <button class="button half" id="users-option">Users</button>
     </div>
-    <div id="user-list" class="panel">{# Users go here #}</div>
+    <div id="rooms-list" class="panel">{# Rooms go here #}</div>
+    <div id="user-list" class="panel" style="display: none">
+      {# Users go here #}
+    </div>
   </div>
   <div class="column is-two-thirds" id="chat-column">
     <div

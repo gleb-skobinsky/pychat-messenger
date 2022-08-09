@@ -1,0 +1,5 @@
+все пользователи пользователя это те, кто писал ему и кому писал он.
+То есть это все recipient_id отправленных им сообщений и все user_id отправленных ему сообщений.
+
+
+(SELECT DISTINCT user_id FROM auth_user AS u INNER JOIN core_messagemodel AS m ON u.id = m.user_id OR u.id = m.recipient_id WHERE u.id = 1) UNION (SELECT DISTINCT recipient_id FROM auth_user AS u INNER JOIN core_messagemodel AS m ON u.id = m.user_id OR u.id = m.recipient_id WHERE u.id = 1);

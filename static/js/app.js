@@ -2,18 +2,38 @@ let currentRecipient = "";
 let chatInput = $("#chat-input");
 let chatButton = $("#btn-send");
 let userList = $("#user-list");
+let roomList = $("#rooms-list");
 let messageList = $("#messages");
 let chatDisplay = $("#chat-overlay");
+let messagesOption = $("#messages-option");
+let usersOption = $("#users-option");
 
 function updateUserList() {
   $.getJSON("api/v1/user/", function (data) {
     userList.children(".user").remove();
     for (let i = 0; i < data.length; i++) {
-      const userItem = `<a class="panel-block user">${data[i]["username"]}</a>`;
+      const userItem = `<a id="responsive" class="panel-block user">${data[i]["username"]}</a>`;
       $(userItem).appendTo("#user-list");
     }
     $(".user").click(function () {
       userList.children(".is-highlighted").removeClass("is-highlighted");
+      let selected = event.target;
+      $(selected).addClass("is-highlighted");
+      setCurrentRecipient(selected.text);
+      $("#chat-name").text(selected.text);
+    });
+  });
+}
+
+function updateRoomList() {
+  $.getJSON("api/v1/active-user/", function (data) {
+    roomList.children(".room").remove();
+    for (let i = 0; i < data.length; i++) {
+      const userItem = `<a id="responsive" class="panel-block room">${data[i]["username"]}</a>`;
+      $(userItem).appendTo("#rooms-list");
+    }
+    $(".room").click(function () {
+      roomList.children(".is-highlighted").removeClass("is-highlighted");
       let selected = event.target;
       $(selected).addClass("is-highlighted");
       setCurrentRecipient(selected.text);
@@ -91,6 +111,7 @@ function disableInput() {
 }
 
 $(document).ready(function () {
+  updateRoomList();
   updateUserList();
   disableInput();
 
@@ -108,6 +129,16 @@ $(document).ready(function () {
       sendMessage(currentRecipient, chatInput.val());
       chatInput.val("");
     }
+  });
+
+  usersOption.click(function () {
+    $("#rooms-list").css("display", "none");
+    $("#user-list").css("display", "block");
+  });
+
+  messagesOption.click(function () {
+    $("#rooms-list").css("display", "block");
+    $("#user-list").css("display", "none");
   });
 
   socket.onmessage = function (e) {
