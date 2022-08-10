@@ -8,7 +8,7 @@ from rest_framework.authentication import SessionAuthentication
 
 from chat import settings
 from core.serializers import MessageModelSerializer, UserModelSerializer
-from core.models import MessageModel
+from core.models import MessageModel, ChatUser
 
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -60,7 +60,7 @@ class MessageModelViewSet(ModelViewSet):
 
 
 class UserModelViewSet(ModelViewSet):
-    queryset = User.objects.all()
+    queryset = ChatUser.objects.all()
     serializer_class = UserModelSerializer
     allowed_methods = ("GET", "HEAD", "OPTIONS")
     pagination_class = None  # Get all users
@@ -77,6 +77,6 @@ class ActiveUserModelViewSet(ModelViewSet):
     pagination_class = None
 
     def list(self, request, *args, **kwargs):
-        sql_query = f"SELECT * FROM auth_user WHERE id IN ((SELECT DISTINCT user_id FROM auth_user AS u INNER JOIN core_messagemodel AS m ON u.id = m.user_id OR u.id = m.recipient_id WHERE u.id = {request.user.id}) UNION (SELECT DISTINCT recipient_id FROM auth_user AS u INNER JOIN core_messagemodel AS m ON u.id = m.user_id OR u.id = m.recipient_id WHERE u.id = {request.user.id})) AND id != {request.user.id};"
-        self.queryset = User.objects.raw(sql_query)
+        sql_query = f"SELECT * FROM core_chatuser WHERE id IN ((SELECT DISTINCT user_id FROM core_chatuser AS u INNER JOIN core_messagemodel AS m ON u.id = m.user_id OR u.id = m.recipient_id WHERE u.id = {request.user.id}) UNION (SELECT DISTINCT recipient_id FROM core_chatuser AS u INNER JOIN core_messagemodel AS m ON u.id = m.user_id OR u.id = m.recipient_id WHERE u.id = {request.user.id})) AND id != {request.user.id};"
+        self.queryset = ChatUser.objects.raw(sql_query)
         return super(ActiveUserModelViewSet, self).list(request, *args, **kwargs)

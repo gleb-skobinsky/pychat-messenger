@@ -1,12 +1,15 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from core.models import ChatUser
 from django.contrib.auth.models import User
 from django import forms
 
 
 class RegisterForm(UserCreationForm):
-    def __init__(self, *args, **kwargs):
-        super(RegisterForm, self).__init__(*args, **kwargs)
-        self.fields["username"].widget.attrs.pop("autofocus", None)
+    # def __init__(self, *args, **kwargs):
+    #     super(RegisterForm, self).__init__(*args, **kwargs)
+    #     self.fields["username"].widget.attrs.pop("autofocus", None)
+
+    avatar = forms.ImageField(label="Avatar", required=False)
 
     username = forms.CharField(
         label="Username",
@@ -53,11 +56,8 @@ class RegisterForm(UserCreationForm):
     )
 
     class Meta:
-        model = User
-        fields = (
-            "username",
-            "email",
-        )
+        model = ChatUser
+        fields = ("username", "email", "avatar")
 
 
 class LoginForm(AuthenticationForm):
@@ -88,4 +88,4 @@ class LoginForm(AuthenticationForm):
     )
 
     class Meta:
-        model = User
+        model = ChatUser

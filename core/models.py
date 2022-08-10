@@ -1,8 +1,72 @@
-from django.contrib.auth.models import User
-from django.db.models import Model, TextField, DateTimeField, ForeignKey, CASCADE
+import email
+from django.contrib.auth.models import (
+    User,
+    UserManager,
+    AbstractBaseUser,
+    PermissionsMixin,
+)
+from django.core import validators
+from django.db.models import (
+    Model,
+    TextField,
+    CharField,
+    BooleanField,
+    DateTimeField,
+    EmailField,
+    ImageField,
+    ForeignKey,
+    CASCADE,
+)
 
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+
+
+class ChatUser(AbstractBaseUser, PermissionsMixin):
+    avatar = ImageField(upload_to="uploads/", default="run/media_root/default_user.png")
+    username = CharField(
+        max_length=30,
+        unique=True,
+        help_text=(
+            "Required. 30 characters or fewer. Letters, digits and " "@/./+/-/_ only."
+        ),
+        validators=[
+            validators.RegexValidator(
+                r"^[\w.@+-]+$",
+                (
+                    "Enter a valid username. "
+                    "This value may contain only letters, numbers "
+                    "and @/./+/-/_ characters."
+                ),
+                "invalid",
+            ),
+        ],
+        error_messages={
+            "unique": ("A user with that username already exists."),
+        },
+    )
+    email = EmailField(blank=True)
+    password = CharField(("password"), max_length=128, default="password")
+    is_staff = BooleanField(
+        _("staff status"),
+        default=False,
+        help_text=_("Designates whether the user can log into this admin " "site."),
+    )
+    is_active = BooleanField(
+        _("active"),
+        default=True,
+        help_text=_(
+            "Designates whether this user should be treated as "
+            "active. Unselect this instead of deleting accounts."
+        ),
+    )
+    date_joined = DateTimeField(_("date joined"), default=timezone.now)
+
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email"]
+    objects = UserManager()
 
 
 class MessageModel(Model):
@@ -13,14 +77,14 @@ class MessageModel(Model):
     """
 
     user = ForeignKey(
-        User,
+        ChatUser,
         on_delete=CASCADE,
         verbose_name="user",
         related_name="from_user",
         db_index=True,
     )
     recipient = ForeignKey(
-        User,
+        ChatUser,
         on_delete=CASCADE,
         verbose_name="recipient",
         related_name="to_user",
@@ -76,7 +140,3 @@ class MessageModel(Model):
         verbose_name = "message"
         verbose_name_plural = "messages"
         ordering = ("-timestamp",)
-
-
-class ChatUser(User):
-    users = []

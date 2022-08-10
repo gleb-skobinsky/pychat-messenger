@@ -12,12 +12,14 @@
           </div>
           <div class="column rightly has-text-centered">
             <h1 class="title is-4">Sign up</h1>
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
               {% csrf_token %}
+              <div class="field">
+                <div class="control">{{ form.avatar }}</div>
+              </div>
               <div class="field">
                 <div class="control">{{ form.username }}</div>
               </div>
-
               <div class="field">
                 <div class="control">{{ form.email }}</div>
               </div>
